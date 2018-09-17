@@ -11,7 +11,7 @@ import (
 	"os/signal"
 	"time"
 
-	"pharos/test-client/JsonRpc"
+	"go-test-client/JsonRpc"
 
 	"github.com/gorilla/websocket"
 )

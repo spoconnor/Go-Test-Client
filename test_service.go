@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"pharos/test-client/JsonRpc"
+	"go-test-client/JsonRpc"
 )
 
 var ErrResponseError = errors.New("response error")
