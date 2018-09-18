@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"go-test-client/JsonRpc"
+	"github.com/spoconnor/Go-Test-Client/JsonRpc"
 )
 
 var ErrResponseError = errors.New("response error")
