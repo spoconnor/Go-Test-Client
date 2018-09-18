@@ -81,7 +81,7 @@ func (m *serviceMap) register(rcvr interface{}, name string) error {
 		}
 		// Method needs three ins: receiver, *args, *reply.
 		if mtype.NumIn() != 3 {
-			log.Printf("[ServiceMap.register] %s needs 3 args, habe %d", method.Name, mtype.NumIn())
+			log.Printf("[ServiceMap.register] %s needs 3 args, have %d", method.Name, mtype.NumIn())
 			continue
 		}
 

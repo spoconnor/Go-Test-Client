@@ -11,15 +11,19 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/spoconnor/Go-Test-Client/JsonRpc"
-
 	"github.com/gorilla/websocket"
+	logging "github.com/spoconnor/Go-Common-Code/logging"
+	"github.com/spoconnor/Go-Test-Client/JsonRpc"
 )
 
-var addr = flag.String("addr", "192.168.158.129:8080", "http service address")
-var key = flag.String("key", "Alice123", "Connection key")
+var addr = flag.String("ws", "127.0.0.1:8080", "websocket address eg '192.168.158.129:8080'")
+var proxy = flag.String("proxy", "", "proxy address eg 'http://localhost:8888'")
 
+// MyProxy sets up the proxy address and port
 func MyProxy(req *http.Request) (*url.URL, error) {
+	if *proxy == "" {
+		return nil, nil
+	}
 	url, err := url.Parse("http://localhost:8888")
 	if err != nil {
 		log.Fatal(err)
@@ -28,7 +32,11 @@ func MyProxy(req *http.Request) (*url.URL, error) {
 	return url, nil
 }
 
+// main entry to app
 func main() {
+	logging.SetupLog("test-client", "info", "output.txt", true)
+	log.Println("Starting test-client")
+
 	flag.Parse()
 	log.SetFlags(0)
 
@@ -65,8 +73,7 @@ func main() {
 			log.Printf("recv: %s", msgBody)
 			jsonBody := string(msgBody)
 			if jsonBody == "RoutingKeyPlease" {
-				//response := fmt.Sprintf("RoutingKey:Alice%d\nChallenge:Wibble", os.Getpid())
-				response := fmt.Sprintf("RoutingKey:%s\nChallenge:Wibble", *key)
+				response := fmt.Sprintf("RoutingKey:Alice%d\nChallenge:Wibble", os.Getpid())
 				log.Printf("Sending routing key: %s", response)
 				err = conn.WriteMessage(websocket.BinaryMessage, []byte(response))
 			} else {
