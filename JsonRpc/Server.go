@@ -87,8 +87,8 @@ type Server struct {
 //    - The method has return type error.
 //
 // All other methods are ignored.
-func (s *Server) RegisterService(receiver interface{}, name string) error {
-	return s.services.register(receiver, name)
+func (s *Server) RegisterService(receiver interface{}, namespace string) error {
+	return s.services.register(receiver, namespace)
 }
 
 // HasMethod returns true if the given method is registered.
